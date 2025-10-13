@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E‑commerce Demo — Desafio do Código</title>
+  <style>
+    /* ================================
+   RESET BÁSICO
+================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: #222;
+  background-color: #f2f4f8; /* 👉 cor de fundo suave */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ================================
+   LAYOUT GERAL
+================================ */
+.app {
+  max-width: 1140px;
+  margin: 28px auto;
+  padding: 16px;
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand h1 {
+  font-size: 20px;
+}
+
+.search {
+  flex: 1;
+  margin: 0 18px;
+}
+
+.search input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* ================================
+   GRID DE PRODUTOS
+================================ */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 16px rgba(20, 20, 40, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.thumb {
+  height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7fb;
+  margin-bottom: 8px;
+}
+
+.thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.price {
+  font-weight: 700;
+  color: #0b6e4f;
+  margin-top: auto;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* ================================
+   BOTÕES
+================================ */
+button {
+  cursor: pointer;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #0b6e4f;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0a5c43;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #ddd;
+}
+
+.btn-outline:hover {
+  background: #f4f4f4;
+}
+
+/* ================================
+   CARRINHO
+================================ */
+.cart-toggle {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #e03b3b;
+  color: white;
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 999px;
+}
+
+.cart-panel {
+  position: fixed;
+  right: 16px;
+  top: 70px;
+  width: 360px;
+  max-height: 75vh;
+  overflow: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(10, 10, 40, 0.12);
+  padding: 14px;
+  z-index: 60;
+}
+
+.cart-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.qty {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* ================================
+   CHECKOUT
+================================ */
+.checkout {
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.form-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.form-row input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  margin-top: 28px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* ================================
+   CLASSE PERSONALIZADA (exemplo)
+================================ */
+.dhdhdg {
+  background: #eafaf1; /* cor de fundo verde clara */
+  border: 1px solid #0b6e4f;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #0b6e4f;
+}
+
+/* ================================
+   RESPONSIVIDADE
+================================ */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .cart-panel {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    top: auto;
+    bottom: 8px;
+    max-height: 60vh;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="6" fill="#0b6e4f"></rect>
+          <path d="M7 12h10M12 7v10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h1>Mini E‑commerce</h1>
+          <div style="font-size:12px;color:#777">Demo com HTML, CSS e JS — Desafio do Código</div>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="searchInput" placeholder="Procure por produto (ex: cimento, martelo)" />
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <select id="sortSelect" aria-label="Ordenar">
+          <option value="default">Ordenar</option>
+          <option value="price-asc">Preço: menor</option>
+          <option value="price-desc">Preço: maior</option>
+          <option value="name">Nome</option>
+        </select>
+        <div class="cart-toggle">
+          <button id="openCartBtn" class="btn-outline">Carrinho</button>
+          <div id="cartCount" class="cart-count" style="display:none">0</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2 style="margin-bottom:12px">Produtos</h2>
+        <div id="products" class="products"></div>
+      </section>
+    </main>
+
+    <div id="cartPanel" style="display:none" class="cart-panel" aria-hidden="true">
+      <h3>Carrinho</h3>
+      <div id="cartItems"></div>
+      <div id="cartSummary" style="margin-top:10px;font-weight:700">Total: R$ 0,00</div>
+
+      <div class="checkout">
+        <div style="font-weight:600;margin-bottom:8px">Finalizar Compra</div>
+        <div class="form-row">
+          <input id="nameInput" placeholder="Nome" />
+        </div>
+        <div class="form-row">
+          <input id="emailInput" placeholder="E-mail" />
+        </div>
+        <div class="form-row">
+          <input id="addressInput" placeholder="Endereço" />
+        </div>
+        <div style="display:flex;gap:8px">
+          <button id="checkoutBtn" class="btn-primary" style="flex:1">Pagar (simulado)</button>
+          <button id="clearCartBtn" class="btn-outline">Limpar</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      &copy; <span id="year"></span> Mini E‑commerce — código aberto para aprendizado
+    </footer>
+  </div>
+
+  <script>
+    // ===== Dados iniciais: array de produtos =====
+    const PRODUCTS = [
+      { id: 'p1', name: 'Cimento CP II 50kg', price: 32.5, img: 'https://picsum.photos/id/1018/400/300', stock: 120 },
+      { id: 'p2', name: 'Tijolo Cerâmico', price: 0.95, img: 'https://picsum.photos/id/1025/400/300', stock: 200 },
+      { id: 'p3', name: 'Telha Ondulada', price: 8.9, img: 'https://picsum.photos/id/1035/400/300', stock: 60 },
+      { id: 'p4', name: 'Martelo', price: 25, img: 'https://picsum.photos/id/1050/400/300', stock: 40 },
+      { id: 'p5', name: 'Trena 5m', price: 18.3, img: 'https://picsum.photos/id/1044/400/300', stock: 80 },
+      { id: 'p6', name: 'Prego 3cm (cx)', price: 12.9, img: 'https://picsum.photos/id/1074/400/300', stock: 140 }
+    ];
+
+    // ===== Estado do carrinho (usa localStorage para persistir) =====
+    let cart = JSON.parse(localStorage.getItem('mini_ecommerce_cart') || '{}');
+
+    // ===== Helpers =====
+    function formatCurrency(v){
+      return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    }
+
+    function saveCart(){
+      localStorage.setItem('mini_ecommerce_cart', JSON.stringify(cart));
+      renderCartCount();
+    }
+
+    // ===== Render produtos =====
+    const productsEl = document.getElementById('products');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+
+    function getFilteredProducts(){
+      const q = searchInput.value.trim().toLowerCase();
+      let list = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
+
+      const sort = sortSelect.value;
+      if(sort === 'price-asc') list.sort((a,b)=>a.price-b.price);
+      else if(sort==='price-desc') list.sort((a,b)=>b.price-a.price);
+      else if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+
+      return list;
+    }
+
+    function renderProducts(){
+      const list = getFilteredProducts();
+      productsEl.innerHTML = '';
+      if(list.length === 0){
+        productsEl.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:#777">Nenhum produto encontrado</div>';
+        return;
+      }
+
+      for(const p of list){
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+          <h3>${p.name}</h3>
+          <div style="font-size:13px;color:#666">Em estoque: ${p.stock}</div>
+          <div class="price">${formatCurrency(p.price)}</div>
+          <div class="actions">
+            <button class="btn-primary" data-id="${p.id}">Adicionar</button>
+            <button class="btn-outline" data-id="${p.id}" style="flex:1">Ver detalhes</button>
+          </div>
+        `;
+
+        productsEl.appendChild(card);
+      }
+
+      // adiciona event listeners dos botões (delegação simples)
+      productsEl.querySelectorAll('button[data-id]').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const id = e.currentTarget.dataset.id;
+          if(e.currentTarget.classList.contains('btn-primary')){
+            addToCart(id,1);
+          } else {
+            alert('Detalhes do produto:\n\n' + JSON.stringify(PRODUCTS.find(x=>x.id===id), null, 2));
+          }
+        });
+      });
+    }
+
+    // ===== Carrinho: funções =====
+    function addToCart(productId, qty=1){
+      const prod = PRODUCTS.find(p=>p.id===productId);
+      if(!prod) return;
+      if(!cart[productId]) cart[productId] = {...prod, qty:0};
+      cart[productId].qty += qty;
+      if(cart[productId].qty > prod.stock) cart[productId].qty = prod.stock; // limita ao estoque
+      saveCart();
+      renderCartPanel();
+    }
+
+    function removeFromCart(productId){
+      delete cart[productId];
+      saveCart();
+      renderCartPanel();
+    }
+
+    function changeQty(productId, delta){
+      if(!cart[productId]) return;
+      cart[productId].qty += delta;
+      if(cart[productId].qty <= 0) delete cart[productId];
+      if(cart[productId] && cart[productId].qty > cart[productId].stock) cart[productId].qty = cart[productId].stock;
+      saveCart();
+      renderCartPanel();
+    }
+
+    function clearCart(){ cart = {}; saveCart(); renderCartPanel(); }
+
+    function cartTotal(){
+      return Object.values(cart).reduce((s,item)=>s + item.qty*item.price, 0);
+    }
+
+    // ===== Render carrinho =====
+    const cartPanel = document.getElementById('cartPanel');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartCountEl = document.getElementById('cartCount');
+    const cartSummaryEl = document.getElementById('cartSummary');
+
+    function renderCartCount(){
+      const count = Object.values(cart).reduce((s,i)=>s+i.qty,0);
+      if(count>0){cartCountEl.style.display='block';cartCountEl.textContent = count}else{cartCountEl.style.display='none'}
+    }
+
+    function renderCartPanel(){
+      cartItemsEl.innerHTML = '';
+      const entries = Object.values(cart);
+      if(entries.length === 0){
+        cartItemsEl.innerHTML = '<div style="padding:12px;color:#666">Seu carrinho está vazio.</div>';
+        cartSummaryEl.textContent = 'Total: R$ 0,00';
+        renderCartCount();
+        return;
+      }
+
+      for(const item of entries){
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.img}" alt="${item.name}">
+          <div style="flex:1">
+            <div style="font-weight:600">${item.name}</div>
+            <div style="font-size:13px;color:#666">${formatCurrency(item.price)} x ${item.qty} = <strong>${formatCurrency(item.price*item.qty)}</strong></div>
+            <div class="qty" style="margin-top:8px">
+              <button class="btn-outline" data-action="dec" data-id="${item.id}">-</button>
+              <div style="min-width:28px;text-align:center">${item.qty}</div>
+              <button class="btn-outline" data-action="inc" data-id="${item.id}">+</button>
+              <button class="btn-outline" data-action="remove" data-id="${item.id}" style="margin-left:8px">Remover</button>
+            </div>
+          </div>
+        `;
+        cartItemsEl.appendChild(div);
+      }
+
+      // listeners
+      cartItemsEl.querySelectorAll('button[data-action]').forEach(b=>{
+        b.addEventListener('click', (e)=>{
+          const id = e.currentTarget.dataset.id;
+          const a = e.currentTarget.dataset.action;
+          if(a==='inc') changeQty(id,1);
+          else if(a==='dec') changeQty(id,-1);
+          else if(a==='remove') removeFromCart(id);
+        });
+      });
+
+      cartSummaryEl.textContent = 'Total: ' + formatCurrency(cartTotal());
+      renderCartCount();
+    }
+
+    // ===== UI: abrir/fechar carrinho e botões =====
+    document.getElementById('openCartBtn').addEventListener('click', ()=>{
+      const visible = cartPanel.style.display !== 'none';
+      cartPanel.style.display = visible ? 'none' : 'block';
+    });
+
+    document.getElementById('clearCartBtn').addEventListener('click', ()=>{
+      if(confirm('Limpar todo o carrinho?')) clearCart();
+    });
+
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+      if(Object.keys(cart).length === 0){ alert('Carrinho vazio'); return; }
+      const name = document.getElementById('nameInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      const address = document.getElementById('addressInput').value.trim();
+      if(!name || !email || !address){ alert('Preencha nome, e-mail e endereço'); return; }
+
+      // Simula pagamento / finalização
+      const order = {
+        id: 'ORD' + Date.now(),
+        date: new Date().toISOString(),
+        customer: {name,email,address},
+        items: Object.values(cart),
+        total: cartTotal()
+      };
+
+      // imprime no console e limpa o carrinho para demo
+      console.log('Pedido realizado:', order);
+      alert('Pedido realizado com sucesso! ID: ' + order.id + '\nTotal: ' + formatCurrency(order.total));
+      clearCart();
+      document.getElementById('nameInput').value='';
+      document.getElementById('emailInput').value='';
+      document.getElementById('addressInput').value='';
+    });
+
+    // ===== Eventos de busca e ordenação =====
+    searchInput.addEventListener('input', ()=>{ renderProducts(); });
+    sortSelect.addEventListener('change', ()=>{ renderProducts(); });
+
+    // ===== Inicialização =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderProducts();
+    renderCartPanel();
+
+    // Exponha função global para facilitar testes (opcional)
+    window.__miniEcom = { PRODUCTS, addToCart, cart, renderProducts };
+  </script>
+</body>
+</html>
