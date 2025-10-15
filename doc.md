@@ -1,7 +1,7 @@
-## Criar e trocar de branch ao mesmo tempo ## 
+# Criar e trocar de branch ao mesmo tempo  
 git checkout -b nome-da-branch
 
-## Atualize a main com as mudanças do curso: ## 
+# Atualize a main com as mudanças do curso: 
 # Quando estiver no curso
 git checkout main
 git merge curso
@@ -10,17 +10,17 @@ git merge curso
 
 # git push --set-upstream origin curso
 
-## Vá para a branch principal e atualize-a
+# Vá para a branch principal e atualize-a
 git checkout main
 git pull origin main
 
-## Vá para a sua branch casa
+# Vá para a sua branch casa
 git checkout casa
 
 # Atualize a branch casa com as novidades da main
 git merge main
 
-### Quando chegar em casa: ### 
+# Quando chegar em casa: ### 
 
 git checkout main
 git pull origin main
@@ -36,6 +36,12 @@ git checkout main
 git merge casa
 git push origin main casa
 
+-----------------------------
+git checkout curso
+git fetch origin
+git merge origin/main
+
+
 
 
 1. pensar o problema.
@@ -47,11 +53,13 @@ git push origin main casa
 
 Antes de codar, pergunte-se:
 
-# O que o usuário precisa fazer? (ver produtos, buscar/ordenar, adicionar ao carrinho, finalizar compra)
+* O que o usuário precisa fazer? (ver produtos, buscar/ordenar, adicionar ao carrinho, finalizar compra)
 
-# Quais dados preciso representar? (produtos, carrinho, pedido, cliente)
+* Quais dados preciso representar? (produtos, carrinho, pedido, cliente)
 
-# Quais restrições existem? (estoque, validação de campos, persistência local)
+* *Quais restrições existem? (estoque, validação de campos, persistência local)
 
-# Quais operações são essenciais? (renderizar lista, filtrar, ordenar, adicionar, alterar quantidade, calcular total, persistir)
+* *Quais operações são essenciais? (renderizar lista, filtrar, ordenar, adicionar, alterar quantidade, calcular total, persistir)
+
+
 
