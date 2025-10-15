@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Criar e trocar de branch ao mesmo tempo  
 git checkout -b nome-da-branch
 
@@ -21,13 +22,17 @@ git checkout casa
 git merge main
 
 # Quando chegar em casa: ### 
+=======
+>>>>>>> origin/main
 
+###
 git checkout main
 git pull origin main
 git checkout casa
 git merge main
+###
 
-
+###
 Depois de trabalhar:
 
 git add .
@@ -35,6 +40,7 @@ git commit -m "Alterações feitas em casa"
 git checkout main
 git merge casa
 git push origin main casa
+<<<<<<< HEAD
 
 -----------------------------
 git checkout curso
@@ -47,6 +53,9 @@ git add .
 git commit -m "Atualiza doc.md antes do merge"
 git merge origin/main
 ------------------------------
+=======
+###
+>>>>>>> origin/main
 
 
 1. pensar o problema.
@@ -58,6 +67,7 @@ git merge origin/main
 
 Antes de codar, pergunte-se:
 
+<<<<<<< HEAD
 * O que o usuário precisa fazer? (ver produtos, buscar/ordenar, adicionar ao carrinho, finalizar compra)
 
 * Quais dados preciso representar? (produtos, carrinho, pedido, cliente)
@@ -67,4 +77,13 @@ Antes de codar, pergunte-se:
 * *Quais operações são essenciais? (renderizar lista, filtrar, ordenar, adicionar, alterar quantidade, calcular total, persistir)
 
 
+=======
+O que o usuário precisa fazer? (ver produtos, buscar/ordenar, adicionar ao carrinho, finalizar compra)
+
+Quais dados preciso representar? (produtos, carrinho, pedido, cliente)
+
+Quais restrições existem? (estoque, validação de campos, persistência local)
+
+Quais operações são essenciais? (renderizar lista, filtrar, ordenar, adicionar, alterar quantidade, calcular total, persistir)
+>>>>>>> origin/main
 
