@@ -1,62 +1,12 @@
-<<<<<<< HEAD
-# Criar e trocar de branch ao mesmo tempo  
-git checkout -b nome-da-branch
-
-# Atualize a main com as mudanças do curso: 
-# Quando estiver no curso
-git checkout main
-git merge curso
-
-# git remote add origin https://github.com/arlindow/E-commerce-Desafio-do-Codigo
-
-# git push --set-upstream origin curso
-
-# Vá para a branch principal e atualize-a
-git checkout main
-git pull origin main
-
-# Vá para a sua branch casa
-git checkout casa
-
-# Atualize a branch casa com as novidades da main
-git merge main
-
-# Quando chegar em casa: ### 
-=======
->>>>>>> origin/main
-
-###
-git checkout main
-git pull origin main
-git checkout casa
-git merge main
-###
-
-###
-Depois de trabalhar:
-
+--------
+Git 
+curso: 
+git status 
 git add .
-git commit -m "Alterações feitas em casa"
-git checkout main
-git merge casa
-git push origin main casa
-<<<<<<< HEAD
+git commit -m "edit curso" 
+git push origin curso:main
 
------------------------------
-git checkout curso
-git fetch origin
-git merge origin/main
----
-error: Your local changes to the following files would be overwritten by merge: doc.md Please commit your changes or stash them before you merge.
----
-git add .
-git commit -m "Atualiza doc.md antes do merge"
-git merge origin/main
-------------------------------
-=======
-###
->>>>>>> origin/main
-
+---------
 
 1. pensar o problema.
 2. dividir em partes menores. 
@@ -67,7 +17,6 @@ git merge origin/main
 
 Antes de codar, pergunte-se:
 
-<<<<<<< HEAD
 * O que o usuário precisa fazer? (ver produtos, buscar/ordenar, adicionar ao carrinho, finalizar compra)
 
 * Quais dados preciso representar? (produtos, carrinho, pedido, cliente)
@@ -76,14 +25,35 @@ Antes de codar, pergunte-se:
 
 * *Quais operações são essenciais? (renderizar lista, filtrar, ordenar, adicionar, alterar quantidade, calcular total, persistir)
 
+2) Divida em módulos lógicos (top-down)
 
-=======
-O que o usuário precisa fazer? (ver produtos, buscar/ordenar, adicionar ao carrinho, finalizar compra)
+Modelo de dados — como estruturar produtos, carrinho e pedido.
 
-Quais dados preciso representar? (produtos, carrinho, pedido, cliente)
+Armazenamento — onde guardar o estado (ex.: memória + localStorage).
 
-Quais restrições existem? (estoque, validação de campos, persistência local)
+Renderização — transformar estado em interface (DOM).
 
-Quais operações são essenciais? (renderizar lista, filtrar, ordenar, adicionar, alterar quantidade, calcular total, persistir)
->>>>>>> origin/main
+Interação / Eventos — ouvir cliques, inputs, formulários.
+
+Regras de negócio — limitar por estoque, calcular totais, validações.
+
+Persistência / Sincronização — salvar/recuperar o carrinho.
+
+Checkout — validar dados do cliente e processar ordem (simulado).
+
+3) Modelo de dados (ponto fundamental)
+
+Pense nos dados como objetos simples:
+
+Produto:
+
+produto = {
+  id: string,
+  nome: string,
+  preco: number,
+  estoque: integer,
+  imagem: string
+}
+
+
 
