@@ -40,8 +40,13 @@ git push origin main casa
 git checkout curso
 git fetch origin
 git merge origin/main
-
-
+---
+error: Your local changes to the following files would be overwritten by merge: doc.md Please commit your changes or stash them before you merge.
+---
+git add .
+git commit -m "Atualiza doc.md antes do merge"
+git merge origin/main
+------------------------------
 
 
 1. pensar o problema.
